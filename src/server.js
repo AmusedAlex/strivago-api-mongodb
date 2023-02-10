@@ -2,7 +2,7 @@ import express from "express";
 import listEndpoints from "express-list-endpoints";
 import cors from "cors";
 import mongoose from "mongoose";
-import accomodationsRouter from "./api/accomodations/index.js";
+import accommodationsRouter from "./api/accommodations/index.js";
 import usersRouter from "./api/users/index.js";
 import {
   badRequestHandler,
@@ -20,7 +20,7 @@ server.use(cors());
 server.use(express.json());
 
 // ******************************** ENDPOINTS *****************************************
-server.use("/accomodations", accomodationsRouter);
+server.use("/accommodations", accommodationsRouter);
 server.use("/users", usersRouter);
 
 // ***************************** ERROR HANDLERS ***************************************

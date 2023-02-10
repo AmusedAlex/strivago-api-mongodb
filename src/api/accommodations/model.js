@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
-const accomodationsSchema = new Schema(
+const accommodationsSchema = new Schema(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
     maxGuests: { type: Number, required: true },
-    host: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    host: { type: Schema.Types.ObjectId, ref: "Users" },
     city: { type: String, required: true },
   },
   {
@@ -15,4 +15,4 @@ const accomodationsSchema = new Schema(
   }
 );
 
-export default model("Accomodation", accomodationsSchema); // this model is now automagically linked to the "accomodations" collection, if collection is not there it will be created
+export default model("Accommodation", accommodationsSchema); // this model is now automagically linked to the "accommodations" collection, if collection is not there it will be created

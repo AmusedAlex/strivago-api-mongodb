@@ -1,14 +1,15 @@
 import express from "express";
 import createHttpError from "http-errors";
-// import { adminOnlyMiddleware } from "../../lib/auth/adminsOnly.js";
-// import { basicAuthMiddleware } from "../../lib/auth/basicAuth.js";
 import { createAccessToken } from "../../lib/auth/tools.js";
 import { JWTAuthMiddleware } from "../../lib/auth/jwtAuth.js";
 import UsersModel from "./model.js";
-
+import AccommodationsModel from "../accommodations/model.js";
+import { checksUserSchema } from "./validator.js";
+import { hostOnlyMiddleware } from "../../lib/auth/hostsOnly.js";
+import mongoose from "mongoose";
 const usersRouter = express.Router();
 
-usersRouter.post("/register", async (req, res, next) => {
+usersRouter.post("/register", checksUserSchema, async (req, res, next) => {
   try {
     req.body.avatar = `https://ui-avatars.com/api/?name=${req.body.firstName} ${req.body.lastName}`;
 
@@ -67,5 +68,21 @@ usersRouter.get("/me", JWTAuthMiddleware, async (req, res, next) => {
     next(error);
   }
 });
+
+usersRouter.get(
+  "/me/accommodations",
+  //   JWTAuthMiddleware,
+  //   hostOnlyMiddleware,
+  async (req, res, next) => {
+    try {
+      //   console.log("🚀 ~ file: index.js:81 ~ req.user._id", req.user._id);
+      const accommodations = await AccommodationsModel.find();
+
+      res.send(accommodations);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 export default usersRouter;
