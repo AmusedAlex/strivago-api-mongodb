@@ -13,7 +13,7 @@ import {
 } from "./errorHandlers";
 
 const server: Express = express();
-const port: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
+const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3001;
 
 // ******************************* MIDDLEWARES ****************************************
 server.use(cors());
